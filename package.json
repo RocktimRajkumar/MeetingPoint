@@ -1,0 +1,11 @@
+{
+  "name": "meetingpoint",
+  "version": "1.0.0",
+  "description": "- Initialize our NodeJS Project\r - Initialize our first view\r - Create a room id\r - Add the ability to view our own Video\r - Add ability to allow others to stream their video\r - Add styling\r - Add the ability to create messages\r - Add mute button\r - Add Stop Video button",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
