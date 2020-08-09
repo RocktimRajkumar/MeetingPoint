@@ -29,6 +29,25 @@ navigator.mediaDevices.getUserMedia({
     socket.on('user-connected', (userId) => {
         connectToNewUser(userId, stream);
     });
+
+    let text = $('input');
+
+    // Sending a message
+    $('#chat_message').keydown((e) => {
+        if (e.which == 13 && text.val().length != 0) {
+            socket.emit('message', ROOM_ID, text.val());
+            $('.messages').append(`<li class="my__message"><b>User</b></br>${text.val()}</li>`);
+            text.val('');
+            scrollToBottom();
+        }
+    });
+
+    //Receiving messages
+    socket.on('createMessage', msg => {
+        $('.messages').append(`<li class="message"><b>User</b></br>${msg}</li>`);
+        scrollToBottom();
+    });
+
 });
 
 // Using WebRTC to share media like vdo and audio
@@ -54,3 +73,8 @@ const addVideoStream = (video, stream) => {
     })
     videoGrid.append(video);
 };
+
+const scrollToBottom = () => {
+    let d = $('.main__chat_window');
+    d.scrollTop(d.prop('scrollHeight'));
+}
