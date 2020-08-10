@@ -10,11 +10,13 @@ var peer = new Peer(undefined, {
     port: '3030'
 });
 
+let myVideoStream;
 // using system camera and audio
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then(stream => {
+    myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
     peer.on('call', call => {
@@ -78,3 +80,58 @@ const scrollToBottom = () => {
     let d = $('.main__chat_window');
     d.scrollTop(d.prop('scrollHeight'));
 }
+
+// Mute or Unmute the microphone
+const muteUnmute = () => {
+    const enabled = myVideoStream.getAudioTracks()[0].enabled;
+    if (enabled) {
+        myVideoStream.getAudioTracks()[0].enabled = false;
+        setUnmuteButton();
+    } else {
+        setMuteButton();
+        myVideoStream.getAudioTracks()[0].enabled = true;
+    }
+}
+
+const setUnmuteButton = () => {
+    const unMute = `<i class="unmute fas fa-microphone-slash"></i>
+    <span>Unmute</span`
+
+    $(".main__mute_button")[0].innerHTML = unMute;
+}
+
+const setMuteButton = () => {
+    const mute = `<i class="mute fas fa-microphone"></i>
+    <span>Mute</span`
+
+    $(".main__mute_button")[0].innerHTML = mute;
+}
+
+
+// Turning Video ON or OFF
+
+const playStop = () => {
+    const enabled = myVideoStream.getVideoTracks()[0].enabled;
+    if (enabled) {
+        myVideoStream.getVideoTracks()[0].enabled = false;
+        setPlayVideo();
+    } else {
+        setStopVideo();
+        myVideoStream.getVideoTracks()[0].enabled = true;
+    }
+}
+
+const setPlayVideo = () => {
+    const play = `<i class="stop fas fa-video-slash"></i>
+    <span>Play Video</span`
+
+    $(".main__video_button")[0].innerHTML = play;
+}
+
+const setStopVideo = () => {
+    const stop = `<i class="mute fas fa-video"></i>
+    <span>Stop Video</span`
+
+    $(".main__video_button")[0].innerHTML = stop;
+}
+
