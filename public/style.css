@@ -86,7 +86,7 @@ video {
 
 .main__chat_window {
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .main__message_container {
@@ -104,9 +104,34 @@ video {
 .messages {
     color: #f5f5f5;
     list-style: none;
-    padding: 0px;
+    padding: 10px;
 }
 
 .my__message {
     text-align: right;
+}
+
+/* chrom customizing the scroll bar */
+
+/* the scrolling handle that can be dragged */
+
+.main__chat_window::-webkit-scrollbar-thumb {
+    background-color: #777677;
+}
+
+/* the scrollbar */
+
+.main__chat_window::-webkit-scrollbar {
+    width: 6px;
+    background-color: #1f1e20;
+}
+
+/* mozilla firefox scroll bar width */
+
+.main__chat_window {
+    scrollbar-width: thin;
+}
+
+.unmute, .stop {
+    color: #cc3833;
 }
